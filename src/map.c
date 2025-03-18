@@ -16,49 +16,73 @@
 #include <stdio.h>
 #include "../includes/get_next_line.h"
 
-int	open_map_file(char *filename)
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdio.h>
+#include "../includes/get_next_line.h"
+
+int	get_map_height(char *filename)
 {
-	int	fd;
+	int		fd;
+	int		height;
+	char	*line;
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-		perror("Error opening map file");
-	return (fd);
+		return (-1);
+	height = 0;
+	line = get_next_line(fd);
+	while (line)
+	{
+		height++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (height);
 }
 
-char	**process_map_lines(int fd)
+char	**process_map_lines(int fd, int height)
 {
 	char	*line;
 	char	**map;
 	int		i;
 
-	map = malloc(sizeof(char *) * 100);
+	map = malloc(sizeof(char *) * (height + 1));
 	if (!map)
 		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
-	while (line)
+	while (line && i < height)
 	{
 		if (ft_strlen(line) > 0 && line[ft_strlen(line) - 1] == '\n')
 			line[ft_strlen(line) - 1] = '\0';
 		map[i++] = line;
-		free(line);
 		line = get_next_line(fd);
 	}
 	map[i] = NULL;
 	return (map);
 }
 
-
 char	**read_map_file(char *filename)
 {
 	int		fd;
 	char	**map;
+	int		height;
 
-	fd = open_map_file(filename);
+	height = get_map_height(filename);
+	if (height <= 0)
+		return (NULL);
+	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return (NULL);
-	map = process_map_lines(fd);
+	map = process_map_lines(fd, height);
+	if (!map)
+	{
+		close(fd);
+		return (NULL);
+	}
 	close(fd);
 	return (map);
 }

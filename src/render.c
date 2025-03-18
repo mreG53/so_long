@@ -31,43 +31,42 @@ void	render_map(void *mlx, void *win, char **map, t_img img)
 			else if (map[i][j] == '0')
 				mlx_put_image_to_window(mlx, win, img.floor, j * TS, i * TS);
 			else if (map[i][j] == 'C')
-				mlx_put_image_to_window(mlx, win,
-					img.collectible, j * TS, i * TS);
+				mlx_put_image_to_window(mlx, win, img.collectible, j * TS, i * TS);
 			else if (map[i][j] == 'E')
 				mlx_put_image_to_window(mlx, win, img.door, j * TS, i * TS);
 			else if (map[i][j] == 'P')
 				mlx_put_image_to_window(mlx, win, img.player, j * TS, i * TS);
+			else if (map[i][j] == 'X')
+				mlx_put_image_to_window(mlx, win, img.enemy[0], j * TS, i * TS);
 			j++;
 		}
 		i++;
 	}
 }
 
-void	draw_player(void *mlx, void *win, t_player *player, t_img img)
+void draw_player(void *mlx, void *win, t_player *player, t_img img)
 {
-	int	frame;
+	int frame;
 
-	frame = 0;
 	if (player->dir == LEFT)
-		mlx_put_image_to_window(mlx, win, img.p_left[frame],
-			player->x * TS, player->y * TS);
+		frame = player->left_anim.current_frame;
 	else
-		mlx_put_image_to_window(mlx, win, img.p_right[frame],
-			player->x * TS, player->y * TS);
+		frame = player->right_anim.current_frame;
+	mlx_put_image_to_window(mlx, win,
+		(player->dir == LEFT ? img.p_left[frame] : img.p_right[frame]),
+		player->x * TS, player->y * TS);
 }
 
-void	draw_enemy(void *mlx, void *win, t_enemy *enemy, t_img img)
+void draw_enemy(void *mlx, void *win, t_enemy *enemy, t_img img)
 {
-	int	frame;
+	int frame;
 
-	frame = 0;
-	if (frame < 0 || frame >= 4)
-	frame = 0;
 	if (enemy->attacking)
-		mlx_put_image_to_window(mlx, win, img.enemy_attack[frame],
-			enemy->x * TS, enemy->y * TS);
+		frame = enemy->attack_anim.current_frame;
 	else
-		mlx_put_image_to_window(mlx, win, img.enemy[frame],
-			enemy->x * TS, enemy->y * TS);
+		frame = enemy->idle_anim.current_frame;
 
+	mlx_put_image_to_window(mlx, win,
+		(enemy->attacking ? img.enemy_attack[frame] : img.enemy[frame]),
+		enemy->x * TS, enemy->y * TS);
 }

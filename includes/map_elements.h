@@ -18,6 +18,7 @@ typedef struct s_elements
 	int	player;
 	int	exit;
 	int	collectible;
+	int enemy;
 	int	valid;
 }				t_elements;
 

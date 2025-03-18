@@ -43,7 +43,7 @@ int	is_wall(char **map)
 		return (0);
 	width = ft_strlen(map[0]);
 	height = 0;
-	while (map[height])
+	while (map[height] && map[height][0] != '\0')
 		height++;
 	i = 0;
 	while (i < width)
@@ -55,7 +55,7 @@ int	is_wall(char **map)
 	i = 0;
 	while (i < height)
 	{
-		if (map[i][0] != '1' || map[i][width - 1] != '1')
+		if (map[i][0] != '1' || map[i][ft_strlen(map[i]) - 1] != '1')
 			return (0);
 		i++;
 	}

@@ -21,12 +21,15 @@ char	**read_map_file(char *filename);
 int		validate_map(char **map);
 t_img	load_images(void *mlx);
 void	setup_hooks(t_game *game);
+int	get_map_height(char *filename);
 
-int	get_map_height(char **map)
+int	get_loaded_map_height(char **map)
 {
 	int	i;
 
 	i = 0;
+	if (!map)
+		return (0);
 	while (map[i])
 		i++;
 	return (i);
@@ -44,16 +47,20 @@ int	main(int argc, char **argv)
 	if (!game.map || !validate_map(game.map))
 		return (ft_printf("Invalid map. Please fix your map file.\n"));
 	map_width = (int)ft_strlen(game.map[0]);
-	map_height = get_map_height(game.map);
+	map_height = get_loaded_map_height(game.map);
 	game.mlx = mlx_init();
-	game.win = mlx_new_window(game.mlx, map_width
-		* TS, map_height * TS, "So Long");
+	game.win = mlx_new_window(game.mlx, map_width * TS, map_height * TS, "So Long");
 	game.img = load_images(game.mlx);
 	game.player.x = 1;
 	game.player.y = 1;
 	game.player.dir = RIGHT;
+	game.enemy.x = 3;
+	game.enemy.y = 3;
+	game.enemy.attacking = 0;
 	render_map(game.mlx, game.win, game.map, game.img);
 	draw_player(game.mlx, game.win, &game.player, game.img);
+	draw_enemy(game.mlx, game.win, &game.enemy, game.img);
 	setup_hooks(&game);
+	mlx_loop(game.mlx);
 	return (0);
 }

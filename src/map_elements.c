@@ -22,6 +22,8 @@ void	count_elements(char c, t_elements *elements)
 		elements->exit++;
 	else if (c == 'C')
 		elements->collectible++;
+	else if (c == 'X')
+		elements->enemy++;
 	else if (c != '0' && c != '1' && c != '\n')
 		elements->valid = 0;
 }
@@ -35,6 +37,7 @@ int	req_elements(char **map)
 	elements.player = 0;
 	elements.exit = 0;
 	elements.collectible = 0;
+	elements.enemy = 0;
 	elements.valid = 1;
 	i = 0;
 	while (map[i])
@@ -47,7 +50,7 @@ int	req_elements(char **map)
 		}
 		i++;
 	}
-	if (elements.player != 1 || elements.exit != 1 || elements.collectible < 1)
+	if (elements.player != 1 || elements.exit != 1 || elements.collectible < 1 || elements.enemy < 1)
 		return (0);
 	return (elements.valid);
 }
