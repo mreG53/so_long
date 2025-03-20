@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
+/*   By: emgumus <emgumus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 05:55:43 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/15 05:55:43 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/03/18 16:10:20 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	req_elements(char **map)
 		}
 		i++;
 	}
-	if (elements.player != 1 || elements.exit != 1 || elements.collectible < 1 || elements.enemy < 1)
+	if (elements.player != 1 || elements.exit != 1 || elements.collectible < 1)
 		return (0);
 	return (elements.valid);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_elemnts.h                                      :+:      :+:    :+:   */
+/*   map_elements.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
+/*   By: emgumus <emgumus@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 05:56:54 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/15 05:56:54 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/03/18 17:20:08 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ typedef struct s_elements
 	int	player;
 	int	exit;
 	int	collectible;
-	int enemy;
+	int	enemy;
 	int	valid;
 }				t_elements;
 
