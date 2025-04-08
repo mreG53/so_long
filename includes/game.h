@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 05:33:08 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/20 23:07:02 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 02:04:57 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_enemy
 {
 	int			x;
 	int			y;
-	t_direction	dir;
 }				t_enemy;
 
 typedef struct s_game
@@ -57,5 +56,14 @@ typedef struct s_pos
 	char	type;
 	char	**map;
 }	t_pos;
+
+int		is_can_walk(char **map, int x, int y);
+int		rem_col(char **map);
+int		get_loaded_map_h(char **map);
+void	free_all(t_game *game);
+
+int		get_enemy_count(char **map);
+void	set_player_position(t_game *game, char **map, int i, int j);
+void	set_single_enemy(t_enemy *enemy, int x, int y);
 
 #endif

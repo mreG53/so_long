@@ -6,13 +6,11 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 04:27:51 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/19 18:18:22 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 04:20:07 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "../includes/ft_printf.h"
-#include "../includes/game.h"
 #include "../includes/render.h"
 #include "../minilibx/mlx.h"
 
@@ -22,6 +20,7 @@ t_img	load_images(void *mlx);
 void	setup_hooks(t_game *game);
 void	init_game(t_game *game, char **map);
 void	init_window(t_game *game);
+void	free_map(char **map);
 
 int	main(int argc, char **argv)
 {
@@ -31,7 +30,11 @@ int	main(int argc, char **argv)
 		return (ft_printf("Usage: %s <map_file.ber>\n", argv[0]));
 	game.map = read_map_file(argv[1]);
 	if (!game.map || !validate_map(game.map))
+	{
+		if (game.map)
+			free_map(game.map);
 		return (ft_printf("Invalid map. Fix map file.\n"));
+	}
 	init_game(&game, game.map);
 	init_window(&game);
 	game.img = load_images(game.mlx);

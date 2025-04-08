@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emgumus <emgumus@student.42.fr>            +#+  +:+       +#+        */
+/*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 05:56:54 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/18 17:20:08 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/06 04:02:37 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,5 @@ typedef struct s_elements
 	int	enemy;
 	int	valid;
 }				t_elements;
-
-void	count_elements(char c, t_elements *elements);
-int		req_elements(char **map);
 
 #endif

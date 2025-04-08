@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:56:28 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/19 17:07:15 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/04 01:43:05 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,57 +16,55 @@ static int	ft_int_len(long nbr)
 {
 	int	count;
 
-	count = 0;
-	if (nbr <= 0)
+	count = 1;
+	if (nbr < 0)
 	{
 		count++;
 		nbr = -nbr;
 	}
-	while (nbr != 0)
+	while (nbr >= 10)
 	{
-		nbr = nbr / 10;
+		nbr /= 10;
 		count++;
 	}
 	return (count);
 }
 
-static char	*ft_preset(int len)
+static char	*handle_zero(void)
 {
-	char	*tmp;
+	char	*str;
 
-	tmp = malloc((len + 1) * sizeof(char));
-	if (!tmp)
-		return (0);
-	else
-	{
-		tmp[0] = '0';
-		return (tmp);
-	}
+	str = malloc(2 * sizeof(char));
+	if (!str)
+		return (NULL);
+	str[0] = '0';
+	str[1] = '\0';
+	return (str);
 }
 
 char	*ft_itoa(int n)
 {
 	char	*str;
 	int		len;
-	int		i;
 	long	nbr;
 
+	if (n == 0)
+		return (handle_zero());
 	nbr = n;
 	len = ft_int_len(nbr);
-	str = ft_preset(len);
+	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)
 		return (NULL);
+	str[len--] = '\0';
 	if (nbr < 0)
-		nbr = -nbr;
-	i = len - 1;
-	while (nbr != 0)
 	{
-		str[i] = ((nbr % 10) + 48);
-		nbr = nbr / 10;
-		i--;
-	}
-	if (n < 0)
 		str[0] = '-';
-	str[len] = '\0';
+		nbr = -nbr;
+	}
+	while (nbr > 0)
+	{
+		str[len--] = (nbr % 10) + '0';
+		nbr /= 10;
+	}
 	return (str);
 }

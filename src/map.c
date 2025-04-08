@@ -3,26 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emgumus <emgumus@student.42kocaeli.com.tr>   +#+  +:+       +#+      */
+/*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 04:36:42 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/15 04:36:42 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 00:23:09 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
 #include "../includes/get_next_line.h"
 
-#include <stdlib.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "../includes/get_next_line.h"
-
-int	get_map_height(char *filename)
+static int	get_map_height(char *filename)
 {
 	int		fd;
 	int		height;
@@ -43,15 +35,21 @@ int	get_map_height(char *filename)
 	return (height);
 }
 
-char	**process_map_lines(int fd, int height)
+static void	cleanup_map(char **map, int count)
+{
+	while (count >= 0)
+	{
+		free(map[count]);
+		count--;
+	}
+	free(map);
+}
+
+static char	**process_lines(int fd, int height, char **map)
 {
 	char	*line;
-	char	**map;
 	int		i;
 
-	map = malloc(sizeof(char *) * (height + 1));
-	if (!map)
-		return (NULL);
 	i = 0;
 	line = get_next_line(fd);
 	while (line && i < height)
@@ -61,7 +59,32 @@ char	**process_map_lines(int fd, int height)
 		map[i++] = line;
 		line = get_next_line(fd);
 	}
-	map[i] = NULL;
+	free(line);
+	return (map);
+}
+
+static char	**process_map_lines(int fd, int height)
+{
+	char	**map;
+	int		i;
+
+	map = malloc(sizeof(char *) * (height + 1));
+	if (!map)
+		return (NULL);
+	i = 0;
+	while (i <= height)
+		map[i++] = NULL;
+	map = process_lines(fd, height, map);
+	if (!map)
+		return (NULL);
+	i = 0;
+	while (map[i] && i < height)
+		i++;
+	if (i != height)
+	{
+		cleanup_map(map, height);
+		return (NULL);
+	}
 	return (map);
 }
 
@@ -78,11 +101,6 @@ char	**read_map_file(char *filename)
 	if (fd == -1)
 		return (NULL);
 	map = process_map_lines(fd, height);
-	if (!map)
-	{
-		close(fd);
-		return (NULL);
-	}
 	close(fd);
 	return (map);
 }

@@ -9,10 +9,10 @@ MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
 
 SRC = src/main.c src/map.c src/get_next_line.c \
 	src/get_next_line_utils.c src/map_validate.c \
-	src/map_elements.c src/ft_printf.c src/ft_printf_u.c \
+	src/ft_printf.c src/ft_printf_u.c \
 	src/hooks.c src/load_images.c src/render.c \
 	src/game_utils.c src/move.c src/ft_itoa.c \
-	src/inits.c src/set_players.c
+	src/inits.c src/set_players.c src/free_utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)

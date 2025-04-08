@@ -6,16 +6,11 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/18 17:21:40 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/19 18:25:44 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 01:18:34 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/game_utils.h"
-#include "../includes/get_next_line.h"
-
-int		get_enemy_count(char **map);
-void	set_player_position(t_game *game, char **map, int i, int j);
-void	set_single_enemy(t_enemy *enemy, int x, int y);
+#include "../includes/game.h"
 
 int	get_loaded_map_h(char **map)
 {

@@ -6,21 +6,13 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 05:43:23 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/20 23:04:21 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 02:41:03 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx/mlx.h"
 #include "../includes/images.h"
-#include "../includes/render.h"
 #include "../includes/game.h"
-#include "../includes/game_utils.h"
-
-#include "../minilibx/mlx.h"
-#include "../includes/images.h"
-#include "../includes/render.h"
-#include "../includes/game.h"
-#include "../includes/game_utils.h"
 
 static void	render_tile(void *mlx, void *win, t_img img, t_pos pos)
 {
@@ -94,6 +86,6 @@ void	draw_enemies(void *mlx, void *win, t_game *game, t_img img)
 	{
 		pos.x = game->enemies[i].x * TS;
 		pos.y = game->enemies[i].y * TS;
-		mlx_put_image_to_window(mlx, win, img.enemy[0], pos.x, pos.y);
+		mlx_put_image_to_window(mlx, win, img.enemy, pos.x, pos.y);
 	}
 }

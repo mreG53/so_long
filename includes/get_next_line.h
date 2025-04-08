@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:19:44 by emgumus           #+#    #+#             */
-/*   Updated: 2025/01/25 01:19:44 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/04 02:29:26 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ char	*ft_getrm(char *buffer);
 size_t	ft_strlen(char *s);
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
+void	free_gnl_buffer(void);
 
 #endif

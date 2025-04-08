@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/25 01:20:27 by emgumus           #+#    #+#             */
-/*   Updated: 2025/01/25 01:20:27 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/05 23:27:14 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*g_buffer = NULL;
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	buffer = ft_read(fd, buffer);
-	if (!buffer)
+	g_buffer = ft_read(fd, g_buffer);
+	if (!g_buffer)
 		return (NULL);
-	line = ft_getline(buffer);
-	buffer = ft_getrm(buffer);
+	line = ft_getline(g_buffer);
+	g_buffer = ft_getrm(g_buffer);
 	return (line);
 }
 

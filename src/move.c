@@ -6,20 +6,20 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:27:05 by emgumus           #+#    #+#             */
-/*   Updated: 2025/03/19 18:30:18 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/08 03:59:35 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/game.h"
-#include "../includes/game_utils.h"
 #include "../includes/ft_printf.h"
 #include "../includes/move.h"
 #include "../includes/render.h"
-#include "../includes/get_next_line.h"
 #include "../minilibx/mlx.h"
 #include <stdlib.h>
 
 char	*ft_itoa(int n);
+void	free_all(t_game *game);
+size_t	ft_strlen(char *s);
 
 int	update_direction(t_game *g, int key, int *nx, int *ny)
 {
@@ -46,18 +46,10 @@ int	update_direction(t_game *g, int key, int *nx, int *ny)
 
 int	check_tile(t_game *g, int *nx, int *ny)
 {
-	if (g->map[*ny][*nx] == 'E' && rem_col(g->map) > 0)
-	{
-		*nx = g->player.x;
-		*ny = g->player.y;
-	}
-	else if (g->map[*ny][*nx] == 'E' && rem_col(g->map) == 0)
+	if (g->map[*ny][*nx] == 'E' && rem_col(g->map) == 0)
 	{
 		ft_printf("You Win! Moves: %d\n", g->move_count);
-		mlx_destroy_window(g->mlx, g->win);
-		free_map(g->map);
-		free(g->enemies);
-		exit(0);
+		free_all(g);
 	}
 	else if (!is_can_walk(g->map, *nx, *ny))
 	{
@@ -89,10 +81,7 @@ int	check_enemy_collision(t_game *g)
 			&& g->player.y == g->enemies[k].y)
 		{
 			ft_printf("Game Over! Moves: %d\n", g->move_count);
-			mlx_destroy_window(g->mlx, g->win);
-			free_map(g->map);
-			free(g->enemies);
-			exit(0);
+			free_all(g);
 		}
 		k++;
 	}
@@ -112,6 +101,8 @@ int	refresh_game(t_game *g)
 	draw_player(g->mlx, g->win, &g->player, g->img);
 	draw_enemies(g->mlx, g->win, g, g->img);
 	ms = ft_itoa(g->move_count);
+	if (!ms)
+		return (1);
 	mlx_string_put(g->mlx, g->win, (mw * TS) - 100,
 		(mh * TS) - 20, 0xFFFFFF, ms);
 	free(ms);
