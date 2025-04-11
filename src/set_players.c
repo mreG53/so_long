@@ -37,7 +37,6 @@ void	set_player_position(t_game *game, char **map, int i, int j)
 	game->player.dir = RIGHT;
 	game->player.left_anim.current_frame = 0;
 	game->player.left_anim.frame_count = 4;
-	game->player.left_anim.frame_delay = 10;
 	game->player.right_anim = game->player.left_anim;
 	map[i][j] = '0';
 }

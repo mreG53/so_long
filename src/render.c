@@ -6,13 +6,14 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 05:43:23 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/08 02:41:03 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/09 00:19:49 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minilibx/mlx.h"
 #include "../includes/images.h"
 #include "../includes/game.h"
+#include "../includes/ft_printf.h"
 
 static void	render_tile(void *mlx, void *win, t_img img, t_pos pos)
 {
@@ -22,14 +23,12 @@ static void	render_tile(void *mlx, void *win, t_img img, t_pos pos)
 		mlx_put_image_to_window(mlx, win, img.floor, pos.x, pos.y);
 	else if (pos.type == 'C')
 		mlx_put_image_to_window(mlx, win, img.collectible, pos.x, pos.y);
-	else if (pos.type == 'P')
-		mlx_put_image_to_window(mlx, win, img.player, pos.x, pos.y);
 }
 
 static void	render_exit(void *mlx, void *win, t_img img, t_pos pos)
 {
 	if (pos.type == 'E' && rem_col(pos.map) > 0)
-		mlx_put_image_to_window(mlx, win, img.wall, pos.x, pos.y);
+		mlx_put_image_to_window(mlx, win, img.floor, pos.x, pos.y);
 	else
 		mlx_put_image_to_window(mlx, win, img.door, pos.x, pos.y);
 }

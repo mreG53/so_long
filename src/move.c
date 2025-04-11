@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 18:27:05 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/08 03:59:35 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/09 00:27:30 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 #include "../includes/render.h"
 #include "../minilibx/mlx.h"
 #include <stdlib.h>
+
+#define W 0xFFFFFF
 
 char	*ft_itoa(int n);
 void	free_all(t_game *game);
@@ -48,7 +50,7 @@ int	check_tile(t_game *g, int *nx, int *ny)
 {
 	if (g->map[*ny][*nx] == 'E' && rem_col(g->map) == 0)
 	{
-		ft_printf("You Win! Moves: %d\n", g->move_count);
+		ft_printf("\nYou Win! Moves: %d\n", g->move_count);
 		free_all(g);
 	}
 	else if (!is_can_walk(g->map, *nx, *ny))
@@ -80,7 +82,7 @@ int	check_enemy_collision(t_game *g)
 		if (g->player.x == g->enemies[k].x
 			&& g->player.y == g->enemies[k].y)
 		{
-			ft_printf("Game Over! Moves: %d\n", g->move_count);
+			ft_printf("\nGame Over! Moves: %d\n", g->move_count);
 			free_all(g);
 		}
 		k++;
@@ -90,9 +92,9 @@ int	check_enemy_collision(t_game *g)
 
 int	refresh_game(t_game *g)
 {
-	int		mw;
-	int		mh;
-	char	*ms;
+	int			mw;
+	int			mh;
+	char		*ms;
 
 	mw = ft_strlen(g->map[0]);
 	mh = get_loaded_map_h(g->map);
@@ -103,8 +105,8 @@ int	refresh_game(t_game *g)
 	ms = ft_itoa(g->move_count);
 	if (!ms)
 		return (1);
-	mlx_string_put(g->mlx, g->win, (mw * TS) - 100,
-		(mh * TS) - 20, 0xFFFFFF, ms);
+	mlx_string_put(g->mlx, g->win, (mw * TS) - 20, (mh * TS) - 20, W, ms);
+	ft_printf("\rNow Moves: %d", g->move_count);
 	free(ms);
 	return (1);
 }
