@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "../includes/game.h"
-#include "../minilibx/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
 
 static void	free_images(t_game *game)
@@ -41,26 +41,10 @@ static void	free_images(t_game *game)
 	}
 }
 
-static void	free_map_and_enemies(t_game *game)
-{
-	int	i;
-
-	if (game->map)
-	{
-		i = 0;
-		while (game->map[i])
-		{
-			free(game->map[i]);
-			i++;
-		}
-		free(game->map);
-	}
-	if (game->enemies)
-		free(game->enemies);
-}
-
 void	free_all(t_game *game)
 {
+	if (!game)
+		return ;
 	if (game->mlx)
 	{
 		free_images(game);
@@ -69,6 +53,6 @@ void	free_all(t_game *game)
 		mlx_destroy_display(game->mlx);
 		free(game->mlx);
 	}
-	free_map_and_enemies(game);
+	free_map(game->map);
 	exit(0);
 }

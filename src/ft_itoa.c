@@ -6,28 +6,32 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 18:56:28 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/04 01:43:05 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/14 03:54:28 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 
-static int	ft_int_len(long nbr)
+int	ft_int_len(int n)
 {
-	int	count;
+	int		len;
+	long	nbr;
 
-	count = 1;
+	len = 0;
+	nbr = n;
+	if (nbr == 0)
+		return (1);
 	if (nbr < 0)
 	{
-		count++;
+		len++;
 		nbr = -nbr;
 	}
-	while (nbr >= 10)
+	while (nbr > 0)
 	{
 		nbr /= 10;
-		count++;
+		len++;
 	}
-	return (count);
+	return (len);
 }
 
 static char	*handle_zero(void)
@@ -48,9 +52,9 @@ char	*ft_itoa(int n)
 	int		len;
 	long	nbr;
 
-	if (n == 0)
-		return (handle_zero());
 	nbr = n;
+	if (nbr == 0)
+		return (handle_zero());
 	len = ft_int_len(nbr);
 	str = (char *)malloc((len + 1) * sizeof(char));
 	if (!str)

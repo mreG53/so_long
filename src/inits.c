@@ -12,46 +12,16 @@
 
 #include "../includes/game.h"
 #include "../includes/ft_printf.h"
-#include "../minilibx/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include <stdlib.h>
 
 size_t	ft_strlen(char *s);
-
-void	init_enemies(t_game *game, char **map)
-{
-	int	i;
-	int	j;
-	int	idx;
-
-	idx = 0;
-	i = -1;
-	while (map[++i])
-	{
-		j = -1;
-		while (map[i][++j])
-		{
-			if (map[i][j] == 'X')
-			{
-				set_single_enemy(&game->enemies[idx++], j, i);
-				map[i][j] = '0';
-			}
-		}
-	}
-}
 
 void	init_game(t_game *game, char **map)
 {
 	int	i;
 	int	j;
 
-	game->move_count = 0;
-	game->enemy_count = get_enemy_count(map);
-	game->enemies = malloc(sizeof(t_enemy) * game->enemy_count);
-	if (!game->enemies)
-	{
-		ft_printf("Memory allocation error\n");
-		exit(1);
-	}
 	i = -1;
 	while (map[++i])
 	{
@@ -62,7 +32,6 @@ void	init_game(t_game *game, char **map)
 				set_player_position(game, map, i, j);
 		}
 	}
-	init_enemies(game, map);
 }
 
 void	init_window(t_game *game)
@@ -73,5 +42,15 @@ void	init_window(t_game *game)
 	map_w = (int)ft_strlen(game->map[0]);
 	map_h = get_loaded_map_h(game->map);
 	game->mlx = mlx_init();
+	if (!game->mlx)
+	{
+		ft_printf("Error: mlx_init didn't initialized.");
+		exit (1);
+	}
 	game->win = mlx_new_window(game->mlx, map_w * TS, map_h * TS, "So Long");
+	if (!game->win)
+	{
+		ft_printf("Error: mlx_new_window didn't initialized.");
+		exit (1);
+	}
 }

@@ -6,11 +6,11 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 05:43:23 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/09 00:19:49 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/14 20:26:17 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minilibx/mlx.h"
+#include "../minilibx-linux/mlx.h"
 #include "../includes/images.h"
 #include "../includes/game.h"
 #include "../includes/ft_printf.h"
@@ -23,6 +23,8 @@ static void	render_tile(void *mlx, void *win, t_img img, t_pos pos)
 		mlx_put_image_to_window(mlx, win, img.floor, pos.x, pos.y);
 	else if (pos.type == 'C')
 		mlx_put_image_to_window(mlx, win, img.collectible, pos.x, pos.y);
+	else if (pos.type == 'X')
+		mlx_put_image_to_window(mlx, win, img.enemy, pos.x, pos.y);
 }
 
 static void	render_exit(void *mlx, void *win, t_img img, t_pos pos)
@@ -72,19 +74,5 @@ void	draw_player(void *mlx, void *win, t_player *player, t_img img)
 	{
 		mlx_put_image_to_window(mlx, win, img.p_right[frame],
 			player->x * TS, player->y * TS);
-	}
-}
-
-void	draw_enemies(void *mlx, void *win, t_game *game, t_img img)
-{
-	int		i;
-	t_pos	pos;
-
-	i = -1;
-	while (++i < game->enemy_count)
-	{
-		pos.x = game->enemies[i].x * TS;
-		pos.y = game->enemies[i].y * TS;
-		mlx_put_image_to_window(mlx, win, img.enemy, pos.x, pos.y);
 	}
 }

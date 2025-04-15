@@ -6,7 +6,7 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 05:33:08 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/08 02:04:57 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:04:29 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ typedef struct s_player
 	t_anim		right_anim;
 }				t_player;
 
-typedef struct s_enemy
-{
-	int			x;
-	int			y;
-}				t_enemy;
-
 typedef struct s_game
 {
 	void		*mlx;
@@ -44,8 +38,6 @@ typedef struct s_game
 	char		**map;
 	t_img		img;
 	t_player	player;
-	t_enemy		*enemies;
-	int			enemy_count;
 	int			move_count;
 }				t_game;
 
@@ -64,6 +56,6 @@ void	free_all(t_game *game);
 
 int		get_enemy_count(char **map);
 void	set_player_position(t_game *game, char **map, int i, int j);
-void	set_single_enemy(t_enemy *enemy, int x, int y);
+void	free_map(char **map);
 
 #endif

@@ -6,12 +6,13 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 04:36:42 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/09 00:25:18 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:56:10 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <fcntl.h>
+#include "../includes/ft_printf.h"
 #include "../includes/get_next_line.h"
 
 static int	get_map_height(char *filename)
@@ -33,16 +34,6 @@ static int	get_map_height(char *filename)
 	}
 	close(fd);
 	return (height);
-}
-
-static void	cleanup_map(char **map, int count)
-{
-	while (count >= 0)
-	{
-		free(map[count]);
-		count--;
-	}
-	free(map);
 }
 
 static char	**process_lines(int fd, int height, char **map)
@@ -78,13 +69,6 @@ static char	**process_map_lines(int fd, int height)
 	if (!map)
 		return (NULL);
 	i = 0;
-	while (map[i] && i < height)
-		i++;
-	if (i != height)
-	{
-		cleanup_map(map, height);
-		return (NULL);
-	}
 	return (map);
 }
 
@@ -99,7 +83,10 @@ char	**read_map_file(char *filename)
 		return (NULL);
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
+	{
+		ft_printf("Error: Could not open file %s\n", filename);
 		return (NULL);
+	}
 	map = process_map_lines(fd, height);
 	close(fd);
 	return (map);

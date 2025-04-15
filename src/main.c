@@ -6,13 +6,13 @@
 /*   By: emgumus <<emgumus@student.42kocaeli.com.tr +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 04:27:51 by emgumus           #+#    #+#             */
-/*   Updated: 2025/04/08 04:20:07 by emgumus          ###   ########.fr       */
+/*   Updated: 2025/04/14 21:48:43 by emgumus          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/ft_printf.h"
 #include "../includes/render.h"
-#include "../minilibx/mlx.h"
+#include "../minilibx-linux/mlx.h"
 
 char	**read_map_file(char *filename);
 int		validate_map(char **map);
@@ -35,12 +35,12 @@ int	main(int argc, char **argv)
 			free_map(game.map);
 		return (ft_printf("Invalid map. Fix map file.\n"));
 	}
+	game.move_count = 0;
 	init_game(&game, game.map);
 	init_window(&game);
 	game.img = load_images(game.mlx);
 	render_map(game.mlx, game.win, game.map, game.img);
 	draw_player(game.mlx, game.win, &game.player, game.img);
-	draw_enemies(game.mlx, game.win, &game, game.img);
 	setup_hooks(&game);
 	mlx_loop(game.mlx);
 	return (0);

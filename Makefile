@@ -2,7 +2,7 @@ NAME = so_long
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-MLX_DIR = minilibx
+MLX_DIR = minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx.a
 MLX_INC = -I$(MLX_DIR)
 MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11
@@ -12,7 +12,8 @@ SRC = src/main.c src/map.c src/get_next_line.c \
 	src/ft_printf.c src/ft_printf_u.c \
 	src/hooks.c src/load_images.c src/render.c \
 	src/game_utils.c src/move.c src/ft_itoa.c \
-	src/inits.c src/set_players.c src/free_utils.c
+	src/inits.c src/set_players.c \
+	src/free_utils.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
